@@ -76,6 +76,18 @@ const app = {
   showDemoSelection() {
     document.getElementById('demo-selection').classList.remove('d-none');
     document.getElementById('story-view').classList.add('d-none');
+    
+    // Clear entity markers when going back to demo selection
+    document.querySelectorAll('.entity-marker').forEach(marker => {
+      marker.remove();
+    });
+    
+    // Reset entity toggle buttons
+    document.querySelectorAll('.entity-toggle').forEach(button => {
+      button.classList.remove('active');
+      button.classList.add('btn-outline-secondary');
+      button.classList.remove('text-white');
+    });
   },
   
   /**
@@ -280,16 +292,16 @@ const app = {
         svg.setAttribute('data-index', section.index);
         svg.setAttribute('class', 'me-2 mb-2 section-rect');
         svg.setAttribute('width', width);
-        svg.setAttribute('height', '20');
-        svg.setAttribute('viewBox', `0 0 ${width} 20`);
+        svg.setAttribute('height', '24'); // Increased height to 24
+        svg.setAttribute('viewBox', `0 0 ${width} 24`);
         svg.setAttribute('title', section.title);
         
         // Create background rect
         const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
         rect.setAttribute('width', width);
-        rect.setAttribute('height', '12');
-        rect.setAttribute('y', '4');
-        rect.setAttribute('fill', '#e9ecef');
+        rect.setAttribute('height', '24'); // Make rect take full height
+        rect.setAttribute('y', '0'); // Start from top
+        rect.setAttribute('fill', 'var(--bs-tertiary-bg)');
         rect.setAttribute('rx', '2');
         svg.appendChild(rect);
         
@@ -298,12 +310,12 @@ const app = {
           if (data.positions[section.index]) {
             data.positions[section.index].forEach(pos => {
               const x = (pos / section.length) * width;
-              const y = 10 + (Math.random() * 4 - 2); // Random jitter
+              const y = 12 + (Math.random() * 4 - 2); // Random jitter centered in the SVG
               
               const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
               circle.setAttribute('cx', x);
               circle.setAttribute('cy', y);
-              circle.setAttribute('r', '1.5');
+              circle.setAttribute('r', '3'); // Increased circle size to 3
               circle.setAttribute('fill', this.entityColors[entity]);
               circle.setAttribute('class', `entity-marker entity-${this.sanitizeId(entity)}`);
               circle.setAttribute('style', 'display: none;');
@@ -381,6 +393,10 @@ const app = {
     
     const entities = Object.keys(this.entityColors).sort();
     
+    // Create responsive table wrapper
+    const tableWrapper = document.createElement('div');
+    tableWrapper.className = 'table-responsive';
+    
     // Create table
     const table = document.createElement('table');
     table.className = 'correlation-table table table-bordered';
@@ -392,6 +408,7 @@ const app = {
     
     entities.forEach(entity => {
       const th = document.createElement('th');
+      th.className = 'column-header';
       th.textContent = entity;
       th.setAttribute('scope', 'col');
       headerRow.appendChild(th);
@@ -408,6 +425,7 @@ const app = {
       
       // Row header
       const th = document.createElement('th');
+      th.className = 'row-header';
       th.textContent = rowEntity;
       th.setAttribute('scope', 'row');
       row.appendChild(th);
@@ -445,7 +463,8 @@ const app = {
     });
     
     table.appendChild(tbody);
-    container.appendChild(table);
+    tableWrapper.appendChild(table);
+    container.appendChild(tableWrapper);
   },
   
   /**
@@ -515,14 +534,14 @@ const app = {
     } else if (bgColor.startsWith('rgb')) {
       color = bgColor.match(/\d+/g).map(Number);
     } else {
-      return '#000'; // Default to black if color format is unknown
+      return 'var(--bs-body-color)'; // Use Bootstrap body color variable
     }
     
     // Calculate relative luminance
     const luminance = (0.299 * color[0] + 0.587 * color[1] + 0.114 * color[2]) / 255;
     
-    // Return white for dark backgrounds, black for light backgrounds
-    return luminance > 0.5 ? '#000' : '#fff';
+    // Return appropriate color based on luminance
+    return luminance > 0.5 ? 'var(--bs-dark)' : 'var(--bs-light)';
   },
   
   /**

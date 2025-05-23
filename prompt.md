@@ -1,5 +1,7 @@
 # Create the story network application
 
+> Windsurf Claude 3.7 Sonnet: [eaa70bc5](https://github.com/sanand0/storynetwork/commit/eaa70bc5622df49bb963573eb0e94f8ba2f2f011)
+
 Create `storynetwork`, an application to BEAUTIFULLY visualize entities (people, places, etc.) and their relationships in a story.
 
 Create an `index.html`, a `script.js` (ESM) and a `config.json` for this application.
@@ -49,7 +51,7 @@ Leave this empty for now.
 - Use functions, not classes
 - Validate early. Use the if-return pattern. Avoid unnecessary else statements
 - Avoid try blocks unless the operation is error-prone
-- Use ESM: <script type="module">
+- Use ESM: `<script type="module">`
 - No TypeScript. Only JavaScript
 - Use MODERN JavaScript. Minimize libraries
 - Use hyphenated HTML class/ID names (id="user-id" not id="userId")
@@ -59,3 +61,55 @@ Leave this empty for now.
 - Show errors to the user (beautifully). Avoid console.error()
 
 Remember: The app should look BEAUTIFUL!
+
+# Improve home page, add dark theme, fix bugs in appearance
+
+The title of the home page looks dull. Modify it to add a jumbo header and engaging explanation of the app before the cards.
+
+Add a navbar that allows dark-theme toggling. Here is sample code:
+
+```html
+<!-- Include Bootstrap 5.3+ and Bootstrap icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Title</a>
+
+    <!-- Copy this dropdown anywhere in your page, e.g. inside a navbar -->
+    <div class="position-relative" role="group" aria-label="Toggle dark mode" title="Toggle Dark Mode">
+      <button class="dark-theme-toggle btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Open navigation menu">
+        <i class="bi bi-circle-half"></i> <span class="d-lg-none ms-2">Toggle theme</span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li><button class="dropdown-item" data-bs-theme-value="light"><i class="me-2 bi bi-sun-fill"></i> Light</button></li>
+        <li><button class="dropdown-item" data-bs-theme-value="dark"><i class="me-2 bi bi-moon-stars-fill"></i> Dark</button></li>
+        <li><button class="dropdown-item" data-bs-theme-value="auto"><i class="me-2 bi bi-circle-half"></i> Auto</button></li>
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/@gramex/ui@0.3/dist/dark-theme.js" type="module"></script>
+```
+
+Ensure that the app uses colors that will function in dark and light mode. Specifically, instead of hard-coding Bootstrap light/dark, use Bootstrap's built-in variables for body color and body background.
+
+There are a few bugs to fix in "Presence":
+
+- Click on a demo. Click on back. Click on another demo. The entities from the first demo are still present.
+- Add a top/bottom margin to the entity buttons - same as the start/end margins.
+- Let the `<rect>`s inside the SVG take up 100% height of the SVG.
+- Increase the height of the SVGs to 24.
+- Increase the size of the `<circle>`s to 3.
+
+Fix this in "Correlation":
+
+- Center the cell values vertically
+- Make the table response
+- Don't rotate the row headers. Just the column headers
+- Reduce the cell size to 1em x 1em instead of 2em x 2em
+- Ensure that the background of the column headers are transparent so that it does not overlap the range slider

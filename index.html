@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="auto">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Story Network</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap CSS and icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <!-- Markdown parser -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <!-- D3.js for visualizations -->
@@ -34,33 +35,72 @@
     .section-rect:hover {
       opacity: 0.8;
     }
-    .correlation-table th {
+    .correlation-table th.column-header {
       transform: rotate(315deg);
       transform-origin: left bottom;
       height: 100px;
-      width: 2em;
+      width: 1em;
+      white-space: nowrap;
+      text-align: left;
+      padding-left: 5px;
+      background-color: transparent !important;
+    }
+    .correlation-table td {
+      width: 1em;
+      height: 1em;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .correlation-table th.row-header {
       white-space: nowrap;
       text-align: left;
       padding-left: 5px;
     }
-    .correlation-table td {
-      width: 2em;
-      height: 2em;
-      text-align: center;
-    }
     .tab-content {
       min-height: 400px;
+    }
+    .entity-toggles {
+      margin: 1rem 0;
+    }
+    .jumbotron {
+      padding: 2rem 1rem;
+      margin-bottom: 2rem;
+      border-radius: 0.3rem;
+      background-color: var(--bs-tertiary-bg);
     }
   </style>
 </head>
 <body>
-  <div class="container py-4">
-    <header class="pb-3 mb-4 border-bottom">
-      <div class="d-flex align-items-center text-dark text-decoration-none">
-        <iconify-icon icon="mdi:graph-outline" width="40" height="40"></iconify-icon>
-        <span class="fs-4 ms-2">Story Network</span>
+  <!-- Navbar with dark mode toggle -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <iconify-icon icon="mdi:graph-outline" width="30" height="30"></iconify-icon>
+        <span class="ms-2">Story Network</span>
+      </a>
+      
+      <!-- Dark mode toggle -->
+      <div class="position-relative" role="group" aria-label="Toggle dark mode" title="Toggle Dark Mode">
+        <button class="dark-theme-toggle btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Open navigation menu">
+          <i class="bi bi-circle-half"></i> <span class="d-lg-none ms-2">Toggle theme</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><button class="dropdown-item" data-bs-theme-value="light"><i class="me-2 bi bi-sun-fill"></i> Light</button></li>
+          <li><button class="dropdown-item" data-bs-theme-value="dark"><i class="me-2 bi bi-moon-stars-fill"></i> Dark</button></li>
+          <li><button class="dropdown-item" data-bs-theme-value="auto"><i class="me-2 bi bi-circle-half"></i> Auto</button></li>
+        </ul>
       </div>
-    </header>
+    </div>
+  </nav>
+
+  <div class="container py-4">
+    <!-- Jumbotron header -->
+    <div class="jumbotron text-center">
+      <h1 class="display-4">Story Network</h1>
+      <p class="lead">Visualize characters, places, and their relationships in famous stories</p>
+      <hr class="my-4">
+      <p>Explore the intricate connections between characters, track their presence throughout the narrative, and discover hidden patterns in storytelling.</p>
+    </div>
 
     <div id="main-content">
       <!-- Initial demo selection screen -->
@@ -94,7 +134,7 @@
 
         <div class="tab-content" id="storyTabsContent">
           <div class="tab-pane fade show active" id="presence" role="tabpanel" aria-labelledby="presence-tab">
-            <div id="entity-toggles" class="mb-3"></div>
+            <div id="entity-toggles" class="mb-3 entity-toggles"></div>
             <div id="presence-viz" class="mb-4"></div>
           </div>
           <div class="tab-pane fade" id="correlation" role="tabpanel" aria-labelledby="correlation-tab">
@@ -146,7 +186,9 @@
   </div>
 
   <!-- Bootstrap JS Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Dark theme support -->
+  <script src="https://cdn.jsdelivr.net/npm/@gramex/ui@0.3/dist/dark-theme.js" type="module"></script>
   <!-- Main script -->
   <script type="module" src="script.js"></script>
 </body>
