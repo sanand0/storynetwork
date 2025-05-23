@@ -1,0 +1,25 @@
+{
+  "demos": [
+    {
+      "icon": "mdi:book-open-variant",
+      "name": "The Mahabharatha",
+      "notes": "An ancient Indian epic about the Kurukshetra War between the Kauravas and the Pandavas.",
+      "file": "mahabharatha.md",
+      "entities": ["Arjuna", "Krishna", "Duryodhana", "Bhima", "Yudhishthira", "Draupadi", "Karna", "Dhritarashtra", "Shakuni", "Bhishma"]
+    },
+    {
+      "icon": "mdi:account-group",
+      "name": "12 Angry Men",
+      "notes": "A 1957 American courtroom drama film that follows a jury deliberating the conviction or acquittal of a defendant.",
+      "file": "12_angry_men.md",
+      "entities": ["Juror 1", "Juror 2", "Juror 3", "Juror 4", "Juror 5", "Juror 6", "Juror 7", "Juror 8", "Juror 9", "Juror 10", "Juror 11", "Juror 12", "The Defendant", "The Judge"]
+    },
+    {
+      "icon": "mdi:flag-triangle",
+      "name": "Les Misérables",
+      "notes": "A French historical novel by Victor Hugo, first published in 1862, that is considered one of the greatest novels of the 19th century.",
+      "file": "les_miserables.md",
+      "entities": ["Jean Valjean", "Javert", "Fantine", "Cosette", "Marius", "Éponine", "Enjolras", "Thénardier", "Bishop Myriel", "Gavroche"]
+    }
+  ]
+}
